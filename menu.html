@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Menu - Rajashree CakeStory</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#fff0f6;
+    margin:0;
+    text-align:center;
+}
+
+/* HEADER */
+header{
+    display:grid;
+    grid-template-columns:80px 1fr 80px;
+    align-items:center;
+    padding:20px;
+}
+
+header img{
+    width:250px;
+}
+
+header h1{
+    margin:0;
+    color:#d63384;
+    font-size:55px;
+}
+
+/* NAV */
+nav{
+    margin-bottom:20px;
+}
+
+nav a{
+    margin:10px;
+    text-decoration:none;
+    color:#d63384;
+    font-weight:bold;
+    font-size:30px;
+
+}
+
+/* TITLE */
+h2{
+    color:#d63384;
+    font-size:30px;
+}
+
+/* MENU GRID */
+.menu-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+/* CARD */
+.menu-box{
+    background:#ffe6f0;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* HEADINGS */
+.menu-box h3{
+    color:#d63384;
+}
+
+/* BUTTON */
+button{
+    background:#ff85b3;
+    border:none;
+    padding:8px 15px;
+    color:white;
+    border-radius:10px;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#d63384;
+}
+
+/* CART */
+#cart{
+    background:#ffd9e8;
+    padding:20px;
+    margin:20px auto;
+    width:300px;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+    margin-top:30px;
+    padding:20px;
+    background:#ffd9e8;
+    color:#d63384;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+<a href="index2.html"><img src="images/img.webp"></a>
+<h1>Rajashree_CakeStory🧿</h1>
+</header>
+
+<!-- NAV -->
+<nav>
+<a href="index2.html">Home 🏚️</a>
+<a href="about.html">About 👩🏻‍🍳</a>
+<a href="menu.html">Menu📃</a>
+<a href="gallery.html">Gallery📸</a>
+<a href="review.html">Reviews💫</a>
+</nav>
+
+<h2>Our Menu🍴</h2>
+
+<div class="menu-container">
+
+
+<div class="menu-box">
+<h3>Bestsellers ⭐</h3>
+
+<p>Red Velvet Cheesecake ₹600</p>
+<button onclick="addToCart('Red Velvet Cheesecake',600)">Add</button>
+
+<p>Chocolate Truffle  Cake ₹600</p>
+<button onclick="addToCart('Chocolate Truffle Cake',600)">Add</button>
+
+
+<p>Lotus Biscoff Cake ₹600</p>
+<button onclick="addToCart('Lotus Biscoff Cake',600)">Add</button> 
+
+<p>Fruit Cake ₹600</p>
+<button onclick="addToCart('Fruit Cake',600)">Add</button> 
+
+
+</div>
+
+<div class="menu-box">
+<h3>Chocolate Cakes 🤎</h3>
+
+<p>Dark Chocolate ₹500</p>
+<button onclick="addToCart('Dark Chocolate',500)">Add</button>
+
+<p>Chocolate Mocha ₹400</p>
+<button onclick="addToCart('Chocolate Mocha',400)">Add</button>
+
+<p>Chocolate Hazelnut ₹500</p>
+<button onclick="addToCart('Chocolate Hazelnut',500)">Add</button>
+
+<p>Classic Chocolate ₹500</p>
+<button onclick="addToCart('Classic Chocolate',500)">Add</button>
+
+<p>Death By Chocolate ₹500</p>
+<button onclick="addToCart('Death By Chocolate',600)">Add</button>
+ 
+ 
+</div>
+
+<!-- CLASSIC -->
+<div class="menu-box">
+<h3>Classic Flavours 🎀</h3>
+
+<p>Vanilla Cake ₹400</p>
+<button onclick="addToCart('Vanilla Cake',400)">Add</button>
+
+<p>Strawberry cake ₹400</p>
+<button onclick="addToCart('Strawberry Cake',400)">Add</button>
+
+<p>Butterscotch Cake ₹400</p>
+<button onclick="addToCart('Butterscotch Cake',400)">Add</button>
+
+<p>Pineapple Cake ₹400</p>
+<button onclick="addToCart('Pineapple Cake',400)">Add</button>
+
+<p>Black Forest Cake ₹400</p>
+<button onclick="addToCart('Black Forest Cake',400)">Add</button>
+
+<p>White Forest Cake ₹400</p>
+<button onclick="addToCart('White Forest Cake',400)">Add</button>
+</div>
+
+</div>
+
+<!-- CART -->
+<div id="cart">
+<h3>Your Cart 🛒</h3>
+<ul id="items"></ul>
+<p id="total">Total: ₹0</p>
+<button onclick="orderNow()">Order on WhatsApp</button>
+</div>
+
+<footer>
+© 2026 Rajashree_CakeStory
+</footer>
+
+<script>
+let cart=[];
+
+function addToCart(name,price){
+let item=cart.find(i=>i.name===name);
+if(item){item.qty++;}
+else{cart.push({name,price,qty:1});}
+updateCart();
+}
+
+function updateCart(){
+let list=document.getElementById("items");
+let totalEl=document.getElementById("total");
+list.innerHTML="";
+let sum=0;
+
+cart.forEach((item,i)=>{
+sum+=item.price*item.qty;
+list.innerHTML+=`<li>${item.name} x ${item.qty} ₹${item.price}
+<button onclick="removeItem(${i})">❌</button></li>`;
+});
+
+totalEl.innerText="Total: ₹"+sum;
+}
+
+function removeItem(i){
+cart.splice(i,1);
+updateCart();
+}
+
+function orderNow(){
+if(!cart.length) return alert("Cart empty!");
+
+let msg="Hello! I want to order:\n\n";
+let total=0;
+
+cart.forEach((item,i)=>{
+let price=item.price*item.qty;
+msg+=`${i+1}. ${item.name} x ${item.qty} = ₹${price}\n`;
+total+=price;
+});
+
+msg+=`\nTotal: ₹${total}`;
+
+window.open("https://wa.me/917020839979?text="+encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
